@@ -1,0 +1,19 @@
+# Dependências principais do Botellio v1.1
+# Para desenvolvimento local (Windows/Mac/Linux)
+
+# Framework Web
+Flask==3.0.0
+Flask-CORS==4.0.0
+
+# Variáveis de ambiente
+python-dotenv==1.0.0
+
+# Requisições HTTP
+requests==2.31.0
+
+# Utilitários
+python-dateutil==2.8.2
+pytz==2023.3
+
+# Servidor de produção (opcional para desenvolvimento)
+gunicorn==21.2.0

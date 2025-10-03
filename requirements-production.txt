@@ -1,0 +1,33 @@
+# Dependências completas para produção (Render.com)
+# Inclui banco de dados PostgreSQL e serviços externos
+
+# Framework Web
+Flask==3.0.0
+Flask-CORS==4.0.0
+
+# Variáveis de ambiente
+python-dotenv==1.0.0
+
+# Requisições HTTP
+requests==2.31.0
+
+# Utilitários
+python-dateutil==2.8.2
+pytz==2023.3
+
+# Servidor de produção
+gunicorn==21.2.0
+
+# Banco de Dados PostgreSQL (apenas para produção)
+psycopg2-binary==2.9.9
+
+# Cache Redis (apenas para produção)
+redis==5.0.1
+
+# AWS S3 para armazenamento de arquivos (apenas para produção)
+boto3==1.29.0
+
+# Google Calendar API (apenas para produção)
+google-api-python-client==2.108.0
+google-auth-httplib2==0.1.1
+google-auth-oauthlib==1.1.0
