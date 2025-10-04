@@ -1,10 +1,10 @@
-# Botellio v1.1
+# 🤖 Botellio v1.1
 
-Sistema de Suporte Técnico Automatizado via WhatsApp para Impressoras 3D SLA
+**Sistema de Suporte Técnico Automatizado para Impressoras 3D SLA via WhatsApp**
 
-## 🤖 Sobre o Botellio
+## 🎯 Sobre o Botellio
 
-O Botellio é um bot inteligente de atendimento ao cliente desenvolvido especialmente para suporte técnico de impressoras 3D SLA, com foco nos clientes da Quanton3D.
+O Botellio é um assistente inteligente que automatiza o atendimento ao cliente para empresas de impressão 3D SLA, com foco especial em clientes Quanton3D. Utilizando inteligência artificial avançada (Grok), o bot oferece suporte técnico 24/7 através do WhatsApp, classificando problemas e fornecendo soluções precisas.
 
 ### Funcionalidades Principais
 

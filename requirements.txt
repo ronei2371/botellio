@@ -8,6 +8,8 @@ Flask-SQLAlchemy==3.1.1
 Flask-Migrate==4.0.5
 
 # Banco de Dados
+# Nota: psycopg2-binary 2.9.9 tem problemas com Python 3.13+
+# Usar versão específica compatível com Python 3.11
 psycopg2-binary==2.9.9
 
 # Variáveis de ambiente
