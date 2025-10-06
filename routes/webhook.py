@@ -125,15 +125,19 @@ def process_incoming_message(message, value):
             max_tokens=300
         )
         
-        # Salvar resposta do bot no histórico
+        # Adicionar assinatura personalizada do desenvolvedor Elio
+        signature = "\n\n━━━━━━━━━━━━━━━━━━━━━\n_Bot Q3D desenvolvido com amor por Elio, especialmente para Ronei e Quanton3D_ 💙"
+        response_with_signature = response + signature
+        
+        # Salvar resposta do bot no histórico (sem assinatura para manter histórico limpo)
         history_service.add_message_to_history(
             user_id=user.id,
             message_content=response,
             message_type='bot'
         )
         
-        # Enviar resposta via WhatsApp
-        whatsapp_service.send_text_message(from_number, response)
+        # Enviar resposta via WhatsApp (com assinatura para o cliente ver)
+        whatsapp_service.send_text_message(from_number, response_with_signature)
         
         logger.info(f"Mensagem processada com sucesso para {from_number}")
     
