@@ -7,7 +7,9 @@ from flask import Flask
 from routes.webhook import webhook_bp
 from routes.admin import admin_bp
 from database.connection import init_db
+from config.settings import get_config
 import logging
+import os
 
 # Configurar logging
 logging.basicConfig(
@@ -20,11 +22,15 @@ logger = logging.getLogger(__name__)
 # Criar aplicação Flask
 app = Flask(__name__)
 
+# Carregar configurações
+config_class = get_config()
+app.config.from_object(config_class)
+
 # Registrar blueprints
 app.register_blueprint(webhook_bp, url_prefix='/webhook')
 app.register_blueprint(admin_bp, url_prefix='/admin')
 
-# Inicializar banco de dados (após criar o app)
+# Inicializar banco de dados (após configurar o app)
 init_db(app)
 
 @app.route('/')
