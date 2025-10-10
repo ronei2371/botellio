@@ -289,23 +289,32 @@ class WhatsAppService:
             logger.error(f"Erro ao obter URL da mídia: {e}")
             raise
     
-    def download_media(self, media_url):
+    def download_media(self, media_id):
         """
-        Faz download de um arquivo de mídia
+        Faz download de um arquivo de mídia do WhatsApp
         
         Args:
-            media_url (str): URL da mídia
+            media_id (str): ID da mídia no WhatsApp
             
         Returns:
             bytes: Conteúdo do arquivo
         """
         try:
+            # Primeiro, obter a URL da mídia
+            media_url = self.get_media_url(media_id)
+            
+            if not media_url:
+                raise ValueError("URL da mídia não encontrada")
+            
+            # Fazer download do arquivo
             response = requests.get(
                 media_url,
                 headers=self.headers,
                 timeout=TIMEOUTS['MEDIA_UPLOAD']
             )
             response.raise_for_status()
+            
+            logger.info(f"Mídia baixada com sucesso: {media_id}")
             return response.content
         except requests.exceptions.RequestException as e:
             logger.error(f"Erro ao fazer download da mídia: {e}")

@@ -88,11 +88,32 @@ def process_incoming_message(message, value):
         
         # Extrair conteúdo da mensagem
         message_content = ""
+        image_data = None
+        
         if message_type == 'text':
             message_content = message.get('text', {}).get('body', '')
         elif message_type == 'interactive':
             button_reply = message.get('interactive', {}).get('button_reply', {})
             message_content = button_reply.get('title', '')
+        elif message_type == 'image':
+            # Processar imagem
+            image_info = message.get('image', {})
+            image_id = image_info.get('id')
+            caption = image_info.get('caption', '')
+            
+            message_content = f"[Imagem enviada] {caption}" if caption else "[Imagem enviada]"
+            
+            # Baixar imagem do WhatsApp
+            try:
+                image_data = whatsapp_service.download_media(image_id)
+                logger.info(f"Imagem baixada com sucesso: {image_id}")
+            except Exception as e:
+                logger.error(f"Erro ao baixar imagem: {e}")
+                whatsapp_service.send_text_message(
+                    from_number,
+                    "Desculpe, não consegui baixar a imagem. Por favor, tente enviar novamente."
+                )
+                return
         
         # Salvar mensagem do usuário no histórico
         history_service.add_message_to_history(
@@ -104,26 +125,55 @@ def process_incoming_message(message, value):
         # Obter contexto da conversa
         context = history_service.get_context_for_ai(user.id, limit=10)
         
-        # Gerar resposta usando IA
-        system_prompt = f"""
-        Você é o Botellio, um assistente técnico especializado em impressoras 3D SLA.
-        Você trabalha para a Quanton3D e ajuda clientes com problemas técnicos.
-        
-        Seja amigável, profissional e objetivo. Use a base de conhecimento quando apropriado.
-        Se o problema for complexo, sugira agendar uma chamada de vídeo.
-        
-        Nome do cliente: {user.name or 'Cliente'}
-        """
-        
-        # Adicionar prompt do sistema ao contexto
-        full_context = [{"role": "system", "content": system_prompt}] + context
-        
         # Gerar resposta
-        response = ai_service.get_response(
-            prompt=message_content,
-            context=full_context,
-            max_tokens=300
-        )
+        response = ""
+        
+        if image_data:
+            # Análise de imagem
+            logger.info("Analisando imagem com Grok Vision...")
+            
+            # Enviar mensagem de "processando"
+            whatsapp_service.send_text_message(
+                from_number,
+                "🔍 Analisando sua imagem... Aguarde um momento."
+            )
+            
+            # Criar prompt para análise de imagem
+            analysis_prompt = f"""
+Analise esta imagem de uma peça impressa em 3D com resina SLA/DLP.
+
+Contexto adicional do cliente: {caption if caption else "Nenhum contexto fornecido"}
+
+Por favor, identifique:
+1. Problemas visíveis na peça (camadas visíveis, deformações, falhas de adesão, superfície pegajosa, etc.)
+2. Possíveis causas dos problemas identificados
+3. Soluções recomendadas específicas para resinas Quanton3D
+
+Seja técnico mas acessível na sua análise.
+"""
+            
+            response = ai_service.analyze_image(image_data, analysis_prompt)
+        else:
+            # Resposta de texto normal
+            system_prompt = f"""
+Você é o Botellio, um assistente técnico especializado em impressoras 3D SLA.
+Você trabalha para a Quanton3D e ajuda clientes com problemas técnicos.
+
+Seja amigável, profissional e objetivo. Use a base de conhecimento quando apropriado.
+Se o problema for complexo, sugira agendar uma chamada de vídeo.
+
+Nome do cliente: {user.name or 'Cliente'}
+"""
+            
+            # Adicionar prompt do sistema ao contexto
+            full_context = [{"role": "system", "content": system_prompt}] + context
+            
+            # Gerar resposta
+            response = ai_service.get_response(
+                prompt=message_content,
+                context=full_context,
+                max_tokens=300
+            )
         
         # Adicionar assinatura personalizada do desenvolvedor Elio
         signature = "\n\n━━━━━━━━━━━━━━━━━━━━━\n_Bot Q3D desenvolvido com amor por Elio, especialmente para Ronei e Quanton3D_ 💙"

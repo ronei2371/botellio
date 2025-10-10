@@ -1,26 +1,8 @@
-# Dependências principais do Botellio v1.1
-# Para desenvolvimento local (Windows/Mac/Linux)
+flask
+requests
+openai
+gunicorn
+psycopg2-binary
+redis
+b-e
 
-# Framework Web
-Flask==3.0.0
-Flask-CORS==4.0.0
-Flask-SQLAlchemy==3.1.1
-Flask-Migrate==4.0.5
-
-# Banco de Dados
-# Nota: psycopg2-binary 2.9.9 tem problemas com Python 3.13+
-# Usar versão específica compatível com Python 3.11
-psycopg2-binary==2.9.9
-
-# Variáveis de ambiente
-python-dotenv==1.0.0
-
-# Requisições HTTP
-requests==2.31.0
-
-# Utilitários
-python-dateutil==2.8.2
-pytz==2023.3
-
-# Servidor de produção
-gunicorn==21.2.0
