@@ -18,7 +18,7 @@ CATEGORIA_1_ADESAO_NIVELAMENTO = {
         "protocolo_avancado": """⚙ PROTOCOLO AVANÇADO:
 1. **Teste de Gota d'Água**: Pingue água na base - se formar bolha, há contaminação oleosa
 2. **Texturização Microscópica**: Lixe levemente com lixa grão 400 em movimentos circulares
-3. **Primer de Adesão**: Use primer específico para SLA (Magigoo SLA)
+3. **Limpeza Final com IPA**: Álcool Isopropílico 99% para desengordurar completamente a base
 4. **Configurações Extremas**:
    - Primeira camada: 120-180s (muito acima do normal)
    - Camadas base: 15-20 (dobro do padrão)

@@ -15,7 +15,7 @@ ADVANCED_KNOWLEDGE = {
                 "Limpeza com acetona: Use acetona pura (não álcool) para remover óleos residuais",
                 "Aquecimento da base: Aqueça base a 40-50°C antes da impressão",
                 "Texturização microscópica: Lixe levemente com lixa 400 em movimentos circulares",
-                "Primer de adesão: Use primer específico para SLA (Magigoo SLA)"
+                "Limpeza final com IPA: Álcool Isopropílico 99% para desengordurar completamente"
             ],
             "configuracoes_extremas": {
                 "primeira_camada": "120-180s (muito acima do normal)",
