@@ -2,7 +2,7 @@
 Modelo de Conversa
 """
 from datetime import datetime
-from database.connection import db
+from database import db
 
 
 class Conversation(db.Model):

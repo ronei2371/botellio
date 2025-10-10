@@ -2,7 +2,7 @@
 Modelo de Agendamento
 """
 from datetime import datetime
-from database.connection import db
+from database import db
 
 
 class Appointment(db.Model):

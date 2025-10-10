@@ -2,7 +2,7 @@
 Modelo de Usuário
 """
 from datetime import datetime
-from database.connection import db
+from database import db
 
 
 class User(db.Model):
