@@ -9,13 +9,16 @@ from config.settings import Config
 
 # Importa TODA a base de conhecimento expandida
 try:
+    # CONFIGURAÇÕES OFICIAIS DA PLANILHA QUANTON3D
+    from knowledge.configuracoes_planilha_oficial import (
+        buscar_configuracao,
+        CONFIGURACOES_QUANTON3D
+    )
+    
     from knowledge.comprehensive_knowledge_base import (
-        RESINAS_QUANTON3D,
+        RESINAS_QUANTON3D_COMPLETO,
         IMPRESSORAS_SUPORTADAS,
-        FUNDAMENTOS_SLA_DLP,
-        recomendar_parametros,
-        buscar_resina,
-        buscar_impressora
+        FUNDAMENTOS_TECNOLOGIA
     )
     from knowledge.comprehensive_errors_database import (
         ERROS_CATEGORIA_1,
@@ -172,8 +175,53 @@ Quando receber uma imagem, analise cuidadosamente:
             # Fallback para base antiga
             return self._build_knowledge_context_old(user_message)
         
-        # Detecta menção a resinas Quanton3D
-        for resin_key, resin_data in RESINAS_QUANTON3D.items():
+        # BUSCAR CONFIGURAÇÃO ESPECÍFICA DA PLANILHA OFICIAL
+        # Detecta resina + impressora na mensagem
+        resina_detectada = None
+        marca_detectada = None
+        modelo_detectado = None
+        
+        # Lista de resinas para detectar
+        resinas_possiveis = ["PYROBLAST", "IRON", "IRON 7030", "SPIN", "POSEIDON", "RPG 4K", "SPARK", "FLEXFORM", "ALCHEMIST", "LOWSMELL"]
+        marcas_possiveis = ["ANYCUBIC", "ELEGOO", "CREALITY", "PHROZEN"]
+        
+        msg_upper = user_message.upper()
+        
+        # Detectar resina
+        for resina in resinas_possiveis:
+            if resina in msg_upper:
+                resina_detectada = resina
+                break
+        
+        # Detectar marca
+        for marca in marcas_possiveis:
+            if marca in msg_upper:
+                marca_detectada = marca
+                break
+        
+        # Se detectou resina E marca, buscar configuração
+        if resina_detectada and marca_detectada:
+            # Tentar buscar configuração específica
+            config = buscar_configuracao(resina_detectada, marca_detectada, msg_upper)
+            
+            if config:
+                context_parts.append(f"\n**⚙️ CONFIGURAÇÃO OFICIAL QUANTON3D:**")
+                context_parts.append(f"**Resina:** {resina_detectada}")
+                context_parts.append(f"**Impressora:** {config['marca']} {config['modelo']}")
+                context_parts.append(f"\n📋 **Parâmetros Recomendados:**")
+                context_parts.append(f"- Altura de Camada: {config['altura_camada']}")
+                context_parts.append(f"- Camadas de Base: {config['camadas_base']}")
+                context_parts.append(f"- Tempo de Exposição: {config['tempo_exposicao']}s")
+                context_parts.append(f"- Tempo de Exposição Base: {config['tempo_exposicao_base']}s")
+                context_parts.append(f"- Retardo Desligar UV: {config['retardo_desligar_uv']}s")
+                context_parts.append(f"- Retardo Desligar UV Base: {config['retardo_desligar_uv_base']}s")
+                context_parts.append(f"- Descanso Antes da Elevação: {config['descanso_antes_elevacao']}")
+                context_parts.append(f"- Descanso Após a Elevação: {config['descanso_apos_elevacao']}")
+                context_parts.append(f"- Descanso Após a Retração: {config['descanso_apos_retracao']}")
+                context_parts.append(f"\n✅ **ESTES SÃO OS VALORES OFICIAIS DA QUANTON3D!**")
+        
+        # Detecta menção a resinas Quanton3D (informações gerais)
+        for resin_key, resin_data in RESINAS_QUANTON3D_COMPLETO.items():
             resin_name = resin_data["nome"]
             if resin_name.lower() in user_message.lower() or resin_key.lower() in user_message.lower():
                 context_parts.append(f"\n**📦 Informações sobre {resin_name}:**")
