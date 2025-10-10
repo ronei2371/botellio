@@ -7,7 +7,7 @@ Integração de múltiplas fontes: Guias, PDFs, artigos e experiência prática
 # Bases de dados originais
 from .resins_database import (
     RESINS_CONFIG,
-    RESINS_PROPERTIES,
+    RESIN_PROPERTIES,  # Corrigido: era RESINS_PROPERTIES
     COMMON_PROBLEMS,
     get_resin_config,
     get_resin_properties,
@@ -79,7 +79,7 @@ except ImportError:
 __all__ = [
     # Originais
     'RESINS_CONFIG',
-    'RESINS_PROPERTIES',
+    'RESIN_PROPERTIES',  # Corrigido: era RESINS_PROPERTIES
     'COMMON_PROBLEMS',
     'ERRORS_DATABASE',
     'RESPONSE_STRUCTURE',
