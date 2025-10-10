@@ -20,12 +20,12 @@ logger = logging.getLogger(__name__)
 # Criar aplicação Flask
 app = Flask(__name__)
 
-# Inicializar banco de dados
-init_db()
-
 # Registrar blueprints
 app.register_blueprint(webhook_bp, url_prefix='/webhook')
 app.register_blueprint(admin_bp, url_prefix='/admin')
+
+# Inicializar banco de dados (após criar o app)
+init_db(app)
 
 @app.route('/')
 def home():
