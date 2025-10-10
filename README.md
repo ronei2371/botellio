@@ -1,19 +1,27 @@
 # 🤖 Botellio v1.1
 
+[![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-3.0-green.svg)](https://flask.palletsprojects.com/)
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen.svg)]()
+
 **Sistema de Suporte Técnico Automatizado para Impressoras 3D SLA via WhatsApp**
 
 ## 🎯 Sobre o Botellio
 
-O Botellio é um assistente inteligente que automatiza o atendimento ao cliente para empresas de impressão 3D SLA, com foco especial em clientes Quanton3D. Utilizando inteligência artificial avançada (Grok), o bot oferece suporte técnico 24/7 através do WhatsApp, classificando problemas e fornecendo soluções precisas.
+O Botellio é um assistente inteligente que automatiza o atendimento ao cliente para empresas de impressão 3D SLA, com foco especial em clientes Quanton3D. Utilizando inteligência artificial avançada (Grok AI), o bot oferece suporte técnico 24/7 através do WhatsApp, classificando problemas e fornecendo soluções precisas.
 
 ### Funcionalidades Principais
 
-- ✅ Atendimento automatizado via WhatsApp
-- ✅ Suporte técnico para impressoras 3D SLA
+- ✅ Atendimento automatizado via WhatsApp Business API
+- ✅ Suporte técnico especializado para impressoras 3D SLA/DLP
+- ✅ Análise de imagens com IA (Grok Vision)
+- ✅ Base de conhecimento com 9 resinas Quanton3D
+- ✅ Suporte para 20+ modelos de impressoras
 - ✅ Histórico completo de conversas
+- ✅ Diagnóstico estruturado em 3 etapas
 - ✅ Triagem inteligente de problemas
 - ✅ Priorização de clientes Quanton3D
-- ✅ Integração com Grok AI (xAI)
+- ✅ Funciona com ou sem banco de dados
 
 ## 🚀 Tecnologias
 
