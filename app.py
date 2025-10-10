@@ -1,70 +1,49 @@
 """
-Aplicação principal do Botellio - Sistema de Suporte Técnico Automatizado
+Botellio - Sistema de Suporte Técnico Automatizado via WhatsApp
+Desenvolvido com amor por Elio para Ronei e Quanton3D 💙
 """
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-import logging
-from config import get_config
-from database import init_db
+
+from flask import Flask
 from routes.webhook import webhook_bp
 from routes.admin import admin_bp
+from database.connection import init_db
+import logging
 
 # Configurar logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
+
 logger = logging.getLogger(__name__)
 
 # Criar aplicação Flask
 app = Flask(__name__)
 
-# Carregar configurações
-config_class = get_config()
-app.config.from_object(config_class)
-
-# Habilitar CORS
-CORS(app)
-
 # Inicializar banco de dados
-init_db(app)
+init_db()
 
-# Registrar blueprints (rotas)
+# Registrar blueprints
 app.register_blueprint(webhook_bp, url_prefix='/webhook')
 app.register_blueprint(admin_bp, url_prefix='/admin')
 
 @app.route('/')
-def index():
-    """Rota principal - informações sobre o sistema"""
-    return jsonify({
-        'nome': 'Botellio',
-        'versao': '1.1',
-        'descricao': 'Sistema de Suporte Técnico Automatizado para Impressoras 3D SLA',
-        'status': 'online'
-    })
+def home():
+    """Rota principal"""
+    return {
+        "status": "online",
+        "service": "Botellio - Bot de Suporte Técnico Q3D",
+        "version": "1.1",
+        "developer": "Elio",
+        "message": "Bot desenvolvido com amor para Ronei e Quanton3D 💙"
+    }
 
 @app.route('/health')
 def health():
-    """Endpoint de health check"""
-    return jsonify({
-        'status': 'healthy',
-        'service': 'botellio'
-    }), 200
-
-@app.errorhandler(404)
-def not_found(error):
-    """Handler para erro 404"""
-    return jsonify({'erro': 'Endpoint não encontrado'}), 404
-
-@app.errorhandler(500)
-def internal_error(error):
-    """Handler para erro 500"""
-    logger.error(f"Erro interno: {error}")
-    return jsonify({'erro': 'Erro interno do servidor'}), 500
+    """Health check"""
+    return {"status": "healthy"}, 200
 
 if __name__ == '__main__':
-    port = app.config.get('PORT', 8000)
-    debug = app.config.get('FLASK_ENV') == 'development'
-    
-    logger.info(f"Iniciando Botellio na porta {port}...")
-    app.run(host='0.0.0.0', port=port, debug=debug)
+    logger.info("Iniciando Botellio...")
+    app.run(debug=True, host='0.0.0.0', port=5000)
+
