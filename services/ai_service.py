@@ -37,6 +37,12 @@ try:
         ERROS_CATEGORIA_11,
         buscar_erro_avancado
     )
+    # CONHECIMENTO EXPANDIDO COMPLETO (CONHECIMENTO(1).txt)
+    from knowledge.conhecimento_expandido_completo import (
+        CATEGORIA_3_DETALHE_RUPTURA_GEOMETRIA,
+        CATEGORIA_4_SUPORTES_POS_PROCESSAMENTO,
+        buscar_erro_expandido
+    )
     BASE_COMPLETA_CARREGADA = True
     logger = logging.getLogger(__name__)
     logger.info("✅ Base de Conhecimento Botellio v2.0 carregada - 100+ erros catalogados!")
