@@ -43,6 +43,24 @@ try:
         CATEGORIA_4_SUPORTES_POS_PROCESSAMENTO,
         buscar_erro_expandido
     )
+    # GUIA COMPLETO PDF (98 PÁGINAS - TODOS OS 14 MÓDULOS)
+    from knowledge.guia_completo_pdf_integrado import (
+        PARTES_IMPRESSORA,
+        EQUIPAMENTOS_SEGURANCA,
+        FATIADORES,
+        TIPOS_RESINA,
+        CALIBRACAO_RESINA,
+        SUPORTES,
+        SEPARACAO_MODELOS,
+        NIVELAMENTO,
+        PROCESSO_IMPRESSAO,
+        LAVAGEM_CURA,
+        CUIDADOS_POS_IMPRESSAO,
+        POLIMENTO_REMOCAO,
+        INVESTIMENTOS,
+        MARCAS_CONFIAVEIS,
+        buscar_informacao_guia
+    )
     BASE_COMPLETA_CARREGADA = True
     logger = logging.getLogger(__name__)
     logger.info("✅ Base de Conhecimento Botellio v2.0 carregada - 100+ erros catalogados!")
